@@ -1,5 +1,3 @@
-
-
 import json
 import argparse
 from facebook_scraper import get_posts
@@ -12,7 +10,7 @@ from pymongo import MongoClient
 Scrape post data from facebook page and store it in a mongoDB database
 
 Usage : python fb_scraper_mongoDB.py --n  PageNames --email YourEmail --pw  YourPassword
-Page name example (fb12.json): "dorrazarrouk"
+Page name example: "dorrazarrouk"
 Script runs on Python 3
 @author: Oumaima Merhbene
 
@@ -73,10 +71,9 @@ if __name__ == '__main__':
     fb = FacebookScraper([args.n], 5, args.email, args.pw)
     data = fb.scrape_posts()
 
-    # store data it in a mongoDB database
+    # store data in a mongoDB database
     cluster = MongoClient("mongodb+srv://oumaima:tM9grleQTebfFGqg@cluster0.sni7jaw.mongodb.net/?retryWrites=true&w=majority")
     db = cluster["fb_data"]
     collection = db['fb_data']
 
     collection.insert_many(data)
-
